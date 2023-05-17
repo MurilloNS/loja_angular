@@ -1,21 +1,20 @@
 package com.murillons.store.controllers;
 
 import com.murillons.store.dto.ClientRequest;
+import com.murillons.store.dto.ClientUpdate;
 import com.murillons.store.entities.Client;
 import com.murillons.store.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/clients")
 public class ClientController {
     @Autowired
     private ClientService clientService;
@@ -31,5 +30,10 @@ public class ClientController {
                 .toUri();
 
         return ResponseEntity.created(location).body(client);
+    }
+
+    @PatchMapping("/edit/{idClient}")
+    public ResponseEntity<ClientUpdate> updateClient(@Valid @PathVariable Long idClient, @RequestBody ClientUpdate clientUpdate) throws InvocationTargetException, IllegalAccessException {
+        return ResponseEntity.ok(clientService.updateClient(idClient, clientUpdate));
     }
 }

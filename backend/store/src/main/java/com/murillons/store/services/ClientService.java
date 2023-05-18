@@ -10,4 +10,6 @@ public interface ClientService {
     Client saveClient(ClientRequest clientRequest);
 
     ClientUpdate updateClient(Long idClient, ClientUpdate clientUpdate) throws InvocationTargetException, IllegalAccessException;
+
+    void deleteClient(Long idClient);
 }

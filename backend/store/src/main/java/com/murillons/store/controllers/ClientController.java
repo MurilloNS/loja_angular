@@ -33,7 +33,13 @@ public class ClientController {
     }
 
     @PatchMapping("/edit/{idClient}")
-    public ResponseEntity<ClientUpdate> updateClient(@Valid @PathVariable Long idClient, @RequestBody ClientUpdate clientUpdate) throws InvocationTargetException, IllegalAccessException {
+    public ResponseEntity<ClientUpdate> updateClient(@PathVariable Long idClient, @Valid @RequestBody ClientUpdate clientUpdate) throws InvocationTargetException, IllegalAccessException {
         return ResponseEntity.ok(clientService.updateClient(idClient, clientUpdate));
+    }
+
+    @DeleteMapping("delete/{idClient}")
+    public ResponseEntity<Void> deleteClient(@PathVariable Long idClient) {
+        clientService.deleteClient(idClient);
+        return ResponseEntity.noContent().build();
     }
 }

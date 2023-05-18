@@ -7,6 +7,9 @@ import com.murillons.store.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
     @Autowired
@@ -19,5 +22,10 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto saveProduto(Long idVendedor, Produto produto) {
         produto.setVendedor(vendedorRepository.findById(idVendedor).get());
         return produtoRepository.save(produto);
+    }
+
+    @Override
+    public List<Produto> listProdutos(Long idVendedor) {
+        return produtoRepository.findProdutosByIdVendedor(idVendedor);
     }
 }

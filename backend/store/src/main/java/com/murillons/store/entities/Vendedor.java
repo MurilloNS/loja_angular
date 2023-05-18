@@ -1,5 +1,6 @@
 package com.murillons.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -29,4 +31,7 @@ public class Vendedor {
     @Column(unique = true, length = 18)
     private String cnpj;
     private LocalDateTime created;
+    @JsonIgnore
+    @OneToMany(mappedBy = "vendedor")
+    private List<Produto> produtos;
 }

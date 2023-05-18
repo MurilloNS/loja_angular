@@ -18,9 +18,13 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String brand;
     @Column(nullable = false)
     private String name;
     private String description;
     private Integer quantity;
     private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
 }

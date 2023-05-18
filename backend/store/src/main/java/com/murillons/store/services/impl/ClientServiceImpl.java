@@ -6,9 +6,8 @@ import com.murillons.store.dto.ClientUpdate;
 import com.murillons.store.entities.Client;
 import com.murillons.store.repositories.ClientRepository;
 import com.murillons.store.services.ClientService;
-import com.murillons.store.services.exceptions.ClientNotExistException;
-import com.murillons.store.services.exceptions.CpfExistsException;
-import com.murillons.store.services.exceptions.EmailExistsException;
+import com.murillons.store.services.exceptions.UserNotExistException;
+import com.murillons.store.services.exceptions.DataAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +24,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(ClientRequest clientRequest) {
-        Client emailVerified = clientRepository.findByEmail(clientRequest.getEmail());
-        Client cpfVerified = clientRepository.findByCpf(clientRequest.getCpf());
+        boolean emailVerified = clientRepository.findByEmail(clientRequest.getEmail()) != null;
+        boolean cpfVerified = clientRepository.findByCpf(clientRequest.getCpf()) != null;
 
-        if (emailVerified != null)
-            throw new EmailExistsException("Esse e-mail já está cadastrado.");
-        else if (cpfVerified != null)
-            throw new CpfExistsException("Esse cpf já está cadastrado.");
+        if (emailVerified)
+            throw new DataAlreadyExistException("Esse e-mail já está cadastrado.");
+        else if (cpfVerified)
+            throw new DataAlreadyExistException("Esse cpf já está cadastrado.");
 
         Client client = Client.builder()
                 .name(clientRequest.getName())
@@ -47,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientUpdate updateClient(Long idClient, ClientUpdate clientUpdate) throws InvocationTargetException, IllegalAccessException {
         Client client = clientRepository.findById(idClient)
-                .orElseThrow(() -> new ClientNotExistException("Cliente não encontrado!"));
+                .orElseThrow(() -> new UserNotExistException("Cliente não encontrado!"));
         nullAwareBeanUtilsBean.copyProperties(client, clientUpdate);
         clientRepository.save(client);
         return clientUpdate;

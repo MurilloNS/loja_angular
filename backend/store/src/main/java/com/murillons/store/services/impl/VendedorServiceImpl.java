@@ -55,4 +55,9 @@ public class VendedorServiceImpl implements VendedorService {
         vendedorRepository.save(vendedor);
         return vendedorUpdate;
     }
+
+    @Override
+    public void deleteVendedor(Long idVendedor) {
+        vendedorRepository.deleteById(idVendedor);
+    }
 }

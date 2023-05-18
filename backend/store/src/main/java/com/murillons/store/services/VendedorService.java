@@ -10,4 +10,6 @@ public interface VendedorService {
     Vendedor saveVendedor(VendedorRequest vendedorRequest);
 
     VendedorUpdate updateVendedor(Long idVendedor, VendedorUpdate vendedorUpdate) throws InvocationTargetException, IllegalAccessException;
+
+    void deleteVendedor(Long idVendedor);
 }

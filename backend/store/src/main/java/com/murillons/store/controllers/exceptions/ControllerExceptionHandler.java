@@ -20,7 +20,7 @@ public class ControllerExceptionHandler {
     }
     @ExceptionHandler(UserNotExistException.class)
     public ResponseEntity<StandardError> userNotExistException(UserNotExistException e, HttpServletRequest request) {
-        StandardError error = StandardError.builder().timestamp(LocalDateTime.now()).status(HttpStatus.CONFLICT.value())
+        StandardError error = StandardError.builder().timestamp(LocalDateTime.now()).status(HttpStatus.NOT_FOUND.value())
                 .error(e.getMessage()).path(request.getRequestURI()).build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }

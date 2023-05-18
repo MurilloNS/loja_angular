@@ -36,4 +36,10 @@ public class VendedorController {
     public ResponseEntity<VendedorUpdate> updateVendedor(@PathVariable Long idVendedor, @Valid @RequestBody VendedorUpdate vendedorUpdate) throws InvocationTargetException, IllegalAccessException {
         return ResponseEntity.ok(vendedorService.updateVendedor(idVendedor, vendedorUpdate));
     }
+
+    @DeleteMapping("/delete/{idVendedor}")
+    public ResponseEntity<Void> deleteVendedor(@PathVariable Long idVendedor) {
+        vendedorService.deleteVendedor(idVendedor);
+        return ResponseEntity.noContent().build();
+    }
 }

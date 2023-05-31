@@ -42,7 +42,8 @@ public class VendedorServiceImpl implements VendedorService {
                 .password(vendedorRequest.getPassword())
                 .cpf(vendedorRequest.getCpf())
                 .cnpj(vendedorRequest.getCnpj())
-                .created(LocalDateTime.now()).build();
+                .created(LocalDateTime.now())
+                .enabled(false).build();
 
         return vendedorRepository.save(vendedor);
     }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +26,5 @@ public class Administrator {
     private String password;
     @Column(nullable = false, unique = true, length = 14)
     private String cpf;
+    private LocalDateTime created;
 }

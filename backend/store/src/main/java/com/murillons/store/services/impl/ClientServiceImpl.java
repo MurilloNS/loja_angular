@@ -30,7 +30,7 @@ public class ClientServiceImpl implements ClientService {
         if (emailVerified)
             throw new DataAlreadyExistException("Esse e-mail já está cadastrado.");
         else if (cpfVerified)
-            throw new DataAlreadyExistException("Esse cpf já está cadastrado.");
+            throw new DataAlreadyExistException("Esse CPF já está cadastrado.");
 
         Client client = Client.builder()
                 .name(clientRequest.getName())

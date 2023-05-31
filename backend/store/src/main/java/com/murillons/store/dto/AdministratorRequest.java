@@ -10,8 +10,7 @@ import javax.validation.constraints.Email;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientRequest {
-    private Long id;
+public class AdministratorRequest {
     private String name;
     @Email
     private String email;

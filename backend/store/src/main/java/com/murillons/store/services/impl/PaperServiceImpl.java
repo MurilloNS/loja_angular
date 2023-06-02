@@ -8,6 +8,8 @@ import com.murillons.store.services.exceptions.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaperServiceImpl implements PaperService {
     @Autowired
@@ -38,5 +40,10 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public void deletePaper(Long idPaper) {
         paperRepository.deleteById(idPaper);
+    }
+
+    @Override
+    public List<Paper> listPapers() {
+        return paperRepository.findAll();
     }
 }

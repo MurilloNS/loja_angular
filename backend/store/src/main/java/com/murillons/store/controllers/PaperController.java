@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/papers")
@@ -26,6 +27,11 @@ public class PaperController {
                 .toUri();
 
         return ResponseEntity.created(location).body(newPaper);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Paper>> listPapers() {
+        return ResponseEntity.ok(paperService.listPapers());
     }
 
     @PutMapping("/edit/{idPaper}")

@@ -32,7 +32,11 @@ public class PaperServiceImpl implements PaperService {
                 .orElseThrow(() -> new UserNotExistException("Papel não encontrado!"));
 
         editedPaper.setName(paper.getName());
-
         return paperRepository.save(editedPaper);
+    }
+
+    @Override
+    public void deletePaper(Long idPaper) {
+        paperRepository.deleteById(idPaper);
     }
 }

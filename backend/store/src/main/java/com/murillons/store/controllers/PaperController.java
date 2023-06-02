@@ -32,4 +32,10 @@ public class PaperController {
         public ResponseEntity<Paper> updatePaper(@PathVariable Long idPaper, @RequestBody Paper paper) {
             return ResponseEntity.ok(paperService.updatePaper(idPaper, paper));
     }
+
+    @DeleteMapping("/delete/{idPaper}")
+    public ResponseEntity<Void> deletePaper(@PathVariable Long idPaper) {
+        paperService.deletePaper(idPaper);
+        return ResponseEntity.noContent().build();
+    }
 }

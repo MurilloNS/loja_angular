@@ -15,9 +15,9 @@ public class PaperController {
     @Autowired
     private PaperService paperService;
 
-    @PostMapping("/save/{idAdmin}")
-    public ResponseEntity<Paper> savePaper(@RequestBody Paper paper, @PathVariable Long idAdmin) {
-        Paper newPaper = paperService.savePaper(paper, idAdmin);
+    @PostMapping("/save")
+    public ResponseEntity<Paper> savePaper(@RequestBody Paper paper) {
+        Paper newPaper = paperService.savePaper(paper);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
@@ -26,5 +26,10 @@ public class PaperController {
                 .toUri();
 
         return ResponseEntity.created(location).body(newPaper);
+    }
+
+    @PutMapping("/edit/{idPaper}")
+        public ResponseEntity<Paper> updatePaper(@PathVariable Long idPaper, @RequestBody Paper paper) {
+            return ResponseEntity.ok(paperService.updatePaper(idPaper, paper));
     }
 }

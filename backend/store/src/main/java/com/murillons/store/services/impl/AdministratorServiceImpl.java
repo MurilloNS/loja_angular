@@ -11,6 +11,8 @@ import com.murillons.store.services.AdministratorService;
 import com.murillons.store.services.exceptions.DataAlreadyExistException;
 import com.murillons.store.services.exceptions.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +71,13 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void deleteAdministrator(Long idAdmin) {
         administratorRepository.deleteById(idAdmin);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Administrator administrator = administratorRepository.findByEmail(username);
+        if (administrator == null)
+            throw new UsernameNotFoundException("Administrador não encontrado!");
+        return administrator;
     }
 }

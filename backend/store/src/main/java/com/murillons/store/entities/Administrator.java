@@ -32,7 +32,7 @@ public class Administrator implements UserDetails {
     @Column(nullable = false, unique = true, length = 14)
     private String cpf;
     private LocalDateTime created;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "admin_paper", joinColumns = @JoinColumn(name = "admin_id"), inverseJoinColumns = @JoinColumn(name = "paper_id"))
     private Set<Paper> papers = new HashSet<>();
 

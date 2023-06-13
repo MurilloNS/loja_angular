@@ -1,5 +1,6 @@
 package com.murillons.store.controllers;
 
+import com.murillons.store.dto.AdministratorLoginRequest;
 import com.murillons.store.dto.AdministratorRequest;
 import com.murillons.store.dto.AdministratorUpdate;
 import com.murillons.store.entities.Administrator;
@@ -45,15 +46,15 @@ public class AdministratorController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Administrator administrator) {
+    public ResponseEntity<?> login(@RequestBody AdministratorLoginRequest administratorLoginRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(administrator.getEmail(), administrator.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(administratorLoginRequest.getEmail(), administratorLoginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Administrator result = (Administrator) authentication.getPrincipal();
         String token = jwtUtil.tokenAdministratorGenerate(result);
         HashMap<String, String> map = new HashMap<>();
         map.put("token", token);
-        map.put("email", administrator.getEmail());
+        map.put("email", administratorLoginRequest.getEmail());
         return ResponseEntity.ok(map);
     }
 
